@@ -1,3 +1,5 @@
+/** 
+
 import * as React from "react";
 import { useRouter } from "next/router";
 
@@ -39,3 +41,4 @@ export async function getStaticProps({ params }) {
     revalidate: 1,
   };
 }
+**/

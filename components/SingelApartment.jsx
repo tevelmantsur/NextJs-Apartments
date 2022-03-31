@@ -34,120 +34,107 @@ export default function SingelApartment(props) {
           return (
             <Grid item xs={12} sm={6} md={4} lg={4} key={item.id}>
               <Card key={item.id}>
-                <Link
-                  href={`/apartment/${item.id}`}
-                  color="inherit"
-                  underline="none"
-                >
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      height="200px"
-                      image={item.imgUrl}
-                      alt={"image" + item.adress}
-                    />
-                    <CardContent>
-                      <h3>
-                        {item.price === 0 ? (
-                          "ללא מחיר"
-                        ) : (
-                          <div>
-                            {"מחיר: " +
-                              new Intl.NumberFormat().format(item.price)}
-                          </div>
-                        )}
-                      </h3>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="200px"
+                    image={item.imgUrl}
+                    alt={"image" + item.adress}
+                  />
+                  <CardContent>
+                    <h3>
+                      {item.price === 0 ? (
+                        "ללא מחיר"
+                      ) : (
+                        <div>
+                          {"מחיר: " +
+                            new Intl.NumberFormat().format(item.price)}
+                        </div>
+                      )}
+                    </h3>
 
-                      <Box className="flex">
-                        <Tooltip title="כתובת" placement="right-start">
-                          <LocationOnIcon fontSize="small" />
-                        </Tooltip>
-                        <Typography variant="inherit">
-                          {item.location}
-                        </Typography>
-                      </Box>
+                    <Box className="flex">
+                      <Tooltip title="כתובת" placement="right-start">
+                        <LocationOnIcon fontSize="small" />
+                      </Tooltip>
+                      <Typography variant="inherit">{item.location}</Typography>
+                    </Box>
 
-                      <div></div>
-                      <Box className="flex">
-                        <Tooltip title="רחוב" placement="right-start">
-                          <SignpostIcon fontSize="small" />
-                        </Tooltip>
-                        <Typography variant="caption">{item.adress}</Typography>
-                      </Box>
-                      <div></div>
-                      <Box className="flex">
-                        <Tooltip title="רמת גימור" placement="right-start">
-                          <ConstructionIcon fontSize="small" />
-                        </Tooltip>
-                        <Typography variant="caption">
-                          {item.fixlevel}
-                        </Typography>
-                      </Box>
+                    <div></div>
+                    <Box className="flex">
+                      <Tooltip title="רחוב" placement="right-start">
+                        <SignpostIcon fontSize="small" />
+                      </Tooltip>
+                      <Typography variant="caption">{item.adress}</Typography>
+                    </Box>
+                    <div></div>
+                    <Box className="flex">
+                      <Tooltip title="רמת גימור" placement="right-start">
+                        <ConstructionIcon fontSize="small" />
+                      </Tooltip>
+                      <Typography variant="caption">{item.fixlevel}</Typography>
+                    </Box>
 
-                      <div></div>
-                      <Box className=" rooms">
-                        <Typography variant="caption">{item.rooms}</Typography>
-                        <Tooltip title="חדרים" placement="bottom-end">
-                          <MeetingRoomIcon fontSize="small" />
-                        </Tooltip>
-                      </Box>
-                      <div></div>
-                      <Box className=" meters">
-                        <Typography variant="caption">{item.meter}</Typography>
-                        <Tooltip title="מטר רבוע" placement="bottom-end">
-                          <AspectRatioIcon fontSize="small" />
-                        </Tooltip>
-                      </Box>
-                      <div></div>
+                    <div></div>
+                    <Box className=" rooms">
+                      <Typography variant="caption">{item.rooms}</Typography>
+                      <Tooltip title="חדרים" placement="bottom-end">
+                        <MeetingRoomIcon fontSize="small" />
+                      </Tooltip>
+                    </Box>
+                    <div></div>
+                    <Box className=" meters">
+                      <Typography variant="caption">{item.meter}</Typography>
+                      <Tooltip title="מטר רבוע" placement="bottom-end">
+                        <AspectRatioIcon fontSize="small" />
+                      </Tooltip>
+                    </Box>
+                    <div></div>
 
-                      <Box className=" parking">
-                        <Typography variant="caption">
-                          {" "}
-                          {item.parking}
-                        </Typography>
-                        <Tooltip title="חנייה" placement="bottom-end">
-                          <DirectionsCarIcon fontSize="small" />
-                        </Tooltip>
-                      </Box>
+                    <Box className=" parking">
+                      <Typography variant="caption"> {item.parking}</Typography>
+                      <Tooltip title="חנייה" placement="bottom-end">
+                        <DirectionsCarIcon fontSize="small" />
+                      </Tooltip>
+                    </Box>
 
-                      {!item.OldPrices.length ? (
+                    {!item.OldPrices.length ? (
+                      <Tooltip
+                        className="notification"
+                        color="inherit"
+                        size="small"
+                        key={item.id}
+                        title="כמות העדכונים  "
+                        placement="bottom-start"
+                      >
+                        <Badge badgeContent={item.updated} color="primary">
+                          <NotificationsIcon></NotificationsIcon>
+                        </Badge>
+                      </Tooltip>
+                    ) : (
+                      <div key={item.id} className="notification">
                         <Tooltip
-                          className="notification"
                           color="inherit"
                           size="small"
                           key={item.id}
-                          title="כמות העדכונים  "
+                          title={item.OldPrices.map((e) => {
+                            let a = `${new Intl.NumberFormat().format(e)}  `;
+
+                            return a;
+                          })}
                           placement="bottom-start"
                         >
                           <Badge badgeContent={item.updated} color="primary">
                             <NotificationsIcon></NotificationsIcon>
                           </Badge>
                         </Tooltip>
-                      ) : (
-                        <div key={item.id} className="notification">
-                          <Tooltip
-                            color="inherit"
-                            size="small"
-                            key={item.id}
-                            title={item.OldPrices.map((e) => {
-                              let a = `${new Intl.NumberFormat().format(e)}  `;
+                      </div>
+                    )}
 
-                              return a;
-                            })}
-                            placement="bottom-start"
-                          >
-                            <Badge badgeContent={item.updated} color="primary">
-                              <NotificationsIcon></NotificationsIcon>
-                            </Badge>
-                          </Tooltip>
-                        </div>
-                      )}
-
-                      <h4>קומות בבניין: {item.buildingfloors}</h4>
-                      <h4>מס קומה: {item.floor}</h4>
-                    </CardContent>
-                  </CardActionArea>
-                </Link>
+                    <h4>קומות בבניין: {item.buildingfloors}</h4>
+                    <h4>מס קומה: {item.floor}</h4>
+                  </CardContent>
+                </CardActionArea>
               </Card>
             </Grid>
           );
