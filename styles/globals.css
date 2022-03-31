@@ -1,0 +1,141 @@
+html,
+body {
+  padding: 0;
+  margin: auto;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  font-size: 0.8rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: auto;
+  padding: 0;
+}
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: rgb(145, 118, 118);
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.pagination {
+  background-color: #1976d2;
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+}
+
+.sort {
+  background-color: beige;
+  z-index: 1;
+  position: sticky;
+  top: 68.5px;
+  z-index: 1000;
+  margin: 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.data {
+  padding: 0px 50px;
+}
+
+.flex {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mar {
+  margin: 0;
+  padding: 0;
+}
+
+.small_text {
+  color: gray;
+  font-size: 0.8rem;
+}
+
+.fillter {
+  text-align: center;
+  margin: 12px 0;
+}
+
+.notification {
+  position: absolute;
+  top: 215px;
+  left: 5px;
+}
+
+.parking {
+  width: min-content;
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  display: block;
+  text-align: center;
+}
+
+.rooms {
+  width: min-content;
+  position: absolute;
+  bottom: 0px;
+  left: 50px;
+  display: block;
+  text-align: center;
+}
+
+.meters {
+  width: min-content;
+  position: absolute;
+  bottom: 0px;
+  left: 80px;
+  display: block;
+  text-align: center;
+}
+
+.fixlevel {
+  width: min-content;
+  position: absolute;
+  bottom: 0px;
+  left: 110px;
+  display: block;
+  text-align: center;
+}
+
+.ap-container{
+  padding-top: 90px 
+}
