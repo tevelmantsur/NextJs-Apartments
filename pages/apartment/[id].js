@@ -15,7 +15,7 @@ export async function getStaticPaths(props) {
   console.log(props);
   return {
     // Only `/posts/1` and `/posts/2` are generated at build time
-    paths: [{ params: { id: props.params.id } }],
+    paths: [{ params: { id: "py0h2c8x" } }],
     // Enable statically generating additional pages
     // For example: `/posts/3`
     fallback: true,
