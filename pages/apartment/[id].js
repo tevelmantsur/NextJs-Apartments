@@ -27,7 +27,7 @@ export async function getStaticProps({ params }) {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
   const res = await fetch(
-    `https://express-database.vercel.app/apartment/${params.id}`
+    `https://express-database-theta.vercel.app/apartment/${params.id}`
   );
   const data = await res.json();
 

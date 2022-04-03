@@ -225,7 +225,7 @@ export async function getServerSideProps(context) {
   }
   let query = context.query;
   let MyurlParam = new URLSearchParams(query).toString();
-  let url = `https://express-database.vercel.app//search?${MyurlParam}`;
+  let url = `https://express-database-theta.vercel.app/search?${MyurlParam}`;
   const res = await fetch(url);
   const data = await res.json();
   return {
