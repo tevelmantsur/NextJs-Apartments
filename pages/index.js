@@ -22,7 +22,7 @@ function Home() {
         <Box>
           <Box>
             <Typography variant="h3" align="center">
-              התחברות למערכת
+              gas התחברות למערכת
             </Typography>
           </Box>
 
