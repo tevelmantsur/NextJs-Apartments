@@ -5,7 +5,7 @@ function Dashboard() {
   return (
     <div dir="rtl">
       <NavBar />
-      <div></div>
+      <div>test me</div>
     </div>
   );
 }
