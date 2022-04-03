@@ -30,7 +30,8 @@ function Home() {
             endIcon={<GoogleIcon />}
             onClick={() =>
               signIn("google", {
-                callbackUrl: "http://localhost:3000//apartment/new",
+                callbackUrl:
+                  "https://next-js-apartments.vercel.app/apartment/new",
               })
             }
           >
