@@ -28,7 +28,7 @@ function Home() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        minHeight="80vh"
+        minHeight="81vh"
         textAlign="center"
       >
         <Box>
