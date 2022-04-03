@@ -179,7 +179,9 @@ export default function Search({ data, query }) {
         ))}
       </div>
 
-      {!data ? null : data.length === 0 ? (
+      {!data ? (
+        "loading"
+      ) : data.length === 0 ? (
         <div style={contentStyle}>
           <h1>There is No data , click here to reset fillters</h1>
           <button>click me</button>
@@ -209,15 +211,24 @@ export default function Search({ data, query }) {
     </div>
   );
 }
+import { getSession } from "next-auth/react";
 
 export async function getServerSideProps(context) {
+  let session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   let query = context.query;
   let MyurlParam = new URLSearchParams(query).toString();
   let url = `https://express-database.vercel.app//search?${MyurlParam}`;
-
   const res = await fetch(url);
   const data = await res.json();
   return {
-    props: { query, data }, // will be passed to the page component as props
+    props: { query, data, session }, // will be passed to the page component as props
   };
 }
