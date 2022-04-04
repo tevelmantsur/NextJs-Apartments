@@ -10,12 +10,30 @@ import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
 import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
 import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
-
-export default function Search({ data, query, isMobile }) {
+import * as rdd from "react-device-detect";
+export default function Search({ query, isMobile }) {
+  console.log(isMobile);
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
   console.log(query);
+
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    let MyurlParam = new URLSearchParams(query).toString();
+    let url = `https://express-database-theta.vercel.app/search?${MyurlParam}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      });
+  }, [query]);
+
   const router = useRouter();
+
   const onQueryChange = useCallback(() => {
     router.push({ query: Query });
   }, [Query]);
@@ -65,7 +83,7 @@ export default function Search({ data, query, isMobile }) {
       });
     }
   }
-  let page = parseInt(data[0].pageInfo[0]?._id);
+  let page = parseInt(!data ? 0 : data[0].pageInfo[0]?._id);
   const FillterArray = [
     {
       id: "fillterooms",
@@ -213,7 +231,7 @@ export default function Search({ data, query, isMobile }) {
       ) : (
         <div>
           <div className="ap-container" style={contentStyle}>
-            <MemoApartment data={data} />
+            {isLoading ? <p>Loading...</p> : <MemoApartment data={data} />}
           </div>
           <div className="pagination">
             <Box style={contentStyle} display="flex" justifyContent="center">
@@ -235,10 +253,15 @@ export default function Search({ data, query, isMobile }) {
   );
 }
 import { getSession } from "next-auth/react";
-import { isMobile } from "react-device-detect";
-import * as rdd from "react-device-detect";
 
 export async function getServerSideProps(context) {
+  const UA = context.req.headers["user-agent"];
+  const isMobile = Boolean(
+    UA.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+    )
+  );
+
   let session = await getSession(context);
   if (!session) {
     return {
@@ -248,14 +271,8 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
   let query = context.query;
-  let MyurlParam = new URLSearchParams(query).toString();
-  let url = `https://express-database-theta.vercel.app/search?${MyurlParam}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  let isMobile = isMobile;
   return {
-    props: { query, data, session, isMobile }, // will be passed to the page component as props
+    props: { query, session, isMobile }, // will be passed to the page component as props
   };
 }
