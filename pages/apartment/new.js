@@ -12,7 +12,6 @@ import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
 import * as rdd from "react-device-detect";
 export default function Search({ query, isMobile }) {
-  isMobile = false;
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
   console.log(query);
