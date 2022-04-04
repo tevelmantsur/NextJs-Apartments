@@ -11,7 +11,7 @@ import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
 import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
 import { isMobile } from "react-device-detect";
-
+import * as rdd from "react-device-detect";
 export default function Search({ data, query }) {
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
@@ -139,9 +139,15 @@ export default function Search({ data, query }) {
       <NavBar />
       <Drawer
         anchor={!isMobile ? "right" : "bottom"}
-        PaperProps={{
-          style: { top: "70px" },
-        }}
+        PaperProps={
+          !isMobile
+            ? {
+                style: { top: "70px" },
+              }
+            : {
+                style: { top: "70px", width: "100%" },
+              }
+        }
         variant="persistent"
         open={drawer.drawerOpen}
       >
