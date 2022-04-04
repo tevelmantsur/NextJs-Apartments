@@ -32,123 +32,130 @@ export default function NavBar() {
     setAnchorElUser(null);
   };
   return (
-    <AppBar position="fixed">
-      <Toolbar disableGutters>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ mr: 5, display: { xs: "none", md: "flex" } }}
-        >
-          LOGO
-        </Typography>
-
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenNavMenu}
-            color="inherit"
+    <>
+      <AppBar position="fixed">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ mr: 5, display: { xs: "none", md: "flex" } }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            sx={{
-              display: { xs: "block", md: "none" },
-            }}
-          >
-            <MenuItem onClick={handleCloseNavMenu}>
-              <Link href="/">
-                <Typography textAlign="center">ראשי</Typography>
-              </Link>
-            </MenuItem>
-            <MenuItem onClick={handleCloseNavMenu}>
-              <Link href="/apartment/new">
-                <Typography textAlign="center">דירות</Typography>
-              </Link>
-            </MenuItem>
-          </Menu>
-        </Box>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-        >
-          לוגו{" "}
-        </Typography>
+            LOGO
+          </Typography>
 
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          <Link href="/">
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ color: "white", display: "block" }}
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
             >
-              ראשי
-            </Button>
-          </Link>
-          <Link href="/apartment/new">
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ color: "white", display: "block" }}
-            >
-              דירות
-            </Button>
-          </Link>
-        </Box>
-        <Box sx={{ flexGrow: 0, paddingLeft: "2%" }}>
-          <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Typography color={"white"}>{session.user.name}</Typography>
-
-              <Avatar alt={session.user.name} src={session.user.image} />
+              <MenuIcon />
             </IconButton>
-          </Tooltip>
-          <Menu
-            sx={{ mt: "45px" }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link href="/">
+                  <Typography textAlign="center">ראשי</Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link href="/apartment/new">
+                  <Typography textAlign="center">דירות</Typography>
+                </Link>
+              </MenuItem>
+            </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">פרופיל</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">לוח בקרה</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
-              <Typography onClick={() => signOut()} textAlign="center">
-                התנתק
-              </Typography>
-            </MenuItem>
-          </Menu>
-        </Box>
-      </Toolbar>
-    </AppBar>
+            לוגו{" "}
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Link href="/">
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ color: "white", display: "block" }}
+              >
+                ראשי
+              </Button>
+            </Link>
+            <Link href="/apartment/new">
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ color: "white", display: "block" }}
+              >
+                דירות
+              </Button>
+            </Link>
+          </Box>
+          <Box sx={{ flexGrow: 0, paddingLeft: "2%" }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Typography color={"white"}>{session.user.name}</Typography>
+
+                <Avatar alt={session.user.name} src={session.user.image} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">פרופיל</Typography>
+              </MenuItem>
+              <MenuItem
+                href="/dashboard"
+                component="a"
+                onClick={handleCloseUserMenu}
+              >
+                <Typography textAlign="center">לוח בקרה</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography onClick={() => signOut()} textAlign="center">
+                  התנתק
+                </Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <div className="nav-space"></div>
+    </>
   );
 }

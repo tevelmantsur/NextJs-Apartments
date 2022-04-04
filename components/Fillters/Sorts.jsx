@@ -4,6 +4,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
 import IconButton from "@mui/material/IconButton";
+import { Button, Typography } from "@mui/material";
 
 export default function Sorts({ HandelSort, placeholder, htl, lth, sort }) {
   const [clicked, setClicked] = useState("");
@@ -25,45 +26,41 @@ export default function Sorts({ HandelSort, placeholder, htl, lth, sort }) {
 
   return (
     <div style={{ padding: "0 15px" }}>
-      <h4 className="mar" style={{ textAlign: "center" }}>
-        מיין לפי {placeholder}
-      </h4>
+      <Typography variant="h6" textAlign="center">
+        {placeholder}
+      </Typography>
       {clicked === "" ? (
-        <div className="flex">
-          <IconButton className="mar">
-            <ArrowUpwardIcon />
-          </IconButton>
-          <p id={htl} onClick={HandelClick} className="mar small_text">
-            ללא סינון
-          </p>
-        </div>
+        <Button
+          onClick={HandelClick}
+          color="inherit"
+          startIcon={<ArrowUpwardIcon />}
+        >
+          ללא סינון
+        </Button>
       ) : null}
 
       {clicked === "low" ? (
-        <div className="flex">
-          <IconButton name={lth} className="mar" color="primary">
-            <ArrowUpwardIcon />
-          </IconButton>
-          <p
-            onClick={HandelClick}
-            id={lth}
-            value="trarta"
-            className="mar small_text"
-          >
-            מהגבוה לנמוך
-          </p>
-        </div>
+        <Button
+          id={lth}
+          onClick={HandelClick}
+          color="primary"
+          variant="outlined"
+          startIcon={<ArrowUpwardIcon color="primary" />}
+        >
+          מהגבוה לנמוך
+        </Button>
       ) : null}
 
       {clicked === "high" ? (
-        <div className="flex">
-          <IconButton className="mar" color="primary" onClick={HandelClick}>
-            <ArrowDownwardIcon />
-            <p id="no" className="mar small_text">
-              מהנמוך לגבוהה{" "}
-            </p>
-          </IconButton>
-        </div>
+        <Button
+          id="no"
+          onClick={HandelClick}
+          color="secondary"
+          variant="outlined"
+          startIcon={<ArrowDownwardIcon />}
+        >
+          מהנמוך לגבוהה
+        </Button>
       ) : null}
     </div>
   );

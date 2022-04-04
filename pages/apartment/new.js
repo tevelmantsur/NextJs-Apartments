@@ -4,7 +4,7 @@ import { MemoApartment } from "../../components/SingelApartment";
 import { MemoFillter } from "../../components/Fillters/Fillters";
 import { MemoSorts } from "../../components/Fillters/Sorts";
 import Drawer from "@mui/material/Drawer";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Grid, Button } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
 import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
@@ -14,7 +14,7 @@ import NavBar from "../../components/navBar";
 export default function Search({ data, query }) {
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
-
+  console.log(query);
   const router = useRouter();
   const onQueryChange = useCallback(() => {
     router.push({ query: Query });
@@ -22,28 +22,31 @@ export default function Search({ data, query }) {
 
   useEffect(onQueryChange, [Query]);
 
-  const HandelChange = useCallback((e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    e.preventDefault();
-    if (value.length == 0) {
-      setQuery((prevState) => {
-        const { [name]: value, ...prevStat2e } = prevState;
-        delete prevStat2e.page;
-        return {
-          ...prevStat2e,
-        };
-      });
-    } else {
-      setQuery((prevState) => {
-        delete prevState.page;
-        return {
-          ...prevState,
-          [name]: value,
-        };
-      });
-    }
-  });
+  const HandelChange = useCallback(
+    (e) => {
+      let name = e.target.name;
+      let value = e.target.value;
+      e.preventDefault();
+      if (value.length == 0) {
+        setQuery((prevState) => {
+          const { [name]: value, ...prevStat2e } = prevState;
+          delete prevStat2e.page;
+          return {
+            ...prevStat2e,
+          };
+        });
+      } else {
+        setQuery((prevState) => {
+          delete prevState.page;
+          return {
+            ...prevState,
+            [name]: value,
+          };
+        });
+      }
+    },
+    [Query]
+  );
 
   function HandelSort(e, i) {
     let id = e.target.id;
@@ -62,7 +65,7 @@ export default function Search({ data, query }) {
       });
     }
   }
-
+  let page = parseInt(data[0].pageInfo[0]?._id);
   const FillterArray = [
     {
       id: "fillterooms",
@@ -115,6 +118,20 @@ export default function Search({ data, query }) {
     },
   ];
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleResize = () => {
+    if (window.innerWidth < 720) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  });
+
   function handelDrawer() {
     if (drawer.drawerOpen) {
       setDrawer({ drawerOpen: false, name: "פתח" });
@@ -126,7 +143,7 @@ export default function Search({ data, query }) {
     transition: "margin-right 450ms cubic-bezier(0.23, 1, 0.32, 1)",
   };
 
-  if (drawer.drawerOpen) {
+  if (drawer.drawerOpen && !isMobile) {
     contentStyle.marginRight = 225;
   }
 
@@ -134,9 +151,11 @@ export default function Search({ data, query }) {
     <div dir="rtl">
       <NavBar />
       <Drawer
-        anchor="right"
+        anchor={!isMobile ? "right" : "bottom"}
+        PaperProps={{
+          style: { top: "70px" },
+        }}
         variant="persistent"
-        PaperProps={{ style: { top: "70px" } }}
         open={drawer.drawerOpen}
       >
         <IconButton onClick={handelDrawer}>
@@ -157,14 +176,16 @@ export default function Search({ data, query }) {
           </div>
         ))}
       </Drawer>
-      <div style={contentStyle} className="sort flex">
-        <p>פילטריה</p>
-        <IconButton
-          color={!drawer.drawerOpen ? "inherit" : "primary"}
-          onClick={handelDrawer}
-        >
-          <FilterListIcon></FilterListIcon>
-        </IconButton>
+      <Grid className="sort" container style={contentStyle}>
+        <Grid style={{ textAlign: "center" }} item xs={!isMobile ? "auto" : 12}>
+          <Button
+            color={!drawer.drawerOpen ? "inherit" : "primary"}
+            onClick={handelDrawer}
+            startIcon={<FilterListIcon />}
+          >
+            פילטריה
+          </Button>
+        </Grid>
 
         {SortArray.map((item, i) => (
           <div key={item.id}>
@@ -177,7 +198,7 @@ export default function Search({ data, query }) {
             />
           </div>
         ))}
-      </div>
+      </Grid>
 
       {!data ? (
         "loading"
@@ -195,14 +216,13 @@ export default function Search({ data, query }) {
             <Box style={contentStyle} display="flex" justifyContent="center">
               <Pagination
                 onClick={(e, value) => {
-                  console.log(e.target.innerText);
                   setQuery((prevState) => ({
                     ...prevState,
                     page: e.target.innerText,
                   }));
                 }}
                 count={Math.round(data[0].pageInfo[0]?.count / 50)}
-                page={parseInt(data[0].pageInfo[0]?._id)}
+                page={isNaN(page) ? 0 : page}
               ></Pagination>
             </Box>
           </div>

@@ -1,6 +1,6 @@
 html,
 body {
-  padding: 0;
+  padding:0;
   margin: auto;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -63,7 +63,7 @@ h5 {
   background-color: beige;
   z-index: 1;
   position: sticky;
-  top: 68.5px;
+  top: 60px;
   z-index: 1000;
   margin: 0;
   padding: 10px;
@@ -141,3 +141,6 @@ h5 {
 }
 
 
+.nav-space{
+  margin-top: 80px;
+}

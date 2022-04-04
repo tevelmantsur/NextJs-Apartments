@@ -8,7 +8,12 @@ export default function NavBar({ data }) {
     return <div>Loading...</div>;
   }
 
-  return <>{!data ? "loading" : <h1>{data.id}</h1>}</>;
+  return (
+    <>
+      {!data ? "loading" : <h1>{data.id}</h1>}
+      <button onClick={() => router.back()}>Click here to go back</button>
+    </>
+  );
 }
 
 export async function getStaticPaths(props) {
