@@ -137,6 +137,8 @@ export default function Search({ data, query }) {
   return (
     <div dir="rtl">
       <NavBar />
+      <h1>{JSON.stringify(isMobile)}</h1>
+
       <Drawer
         sx={
           !isMobile
@@ -177,6 +179,7 @@ export default function Search({ data, query }) {
           </div>
         ))}
       </Drawer>
+
       <Grid className="sort" container style={contentStyle}>
         <Grid style={{ textAlign: "center" }} item xs={!isMobile ? "auto" : 12}>
           <Button
