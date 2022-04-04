@@ -12,7 +12,7 @@ import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
 import * as rdd from "react-device-detect";
 export default function Search({ query, isMobile }) {
-  console.log(isMobile);
+  isMobile = false;
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
   console.log(query);
@@ -197,7 +197,7 @@ export default function Search({ query, isMobile }) {
         ))}
       </Drawer>
 
-      <Grid className="sort" container style={contentStyle}>
+      <Grid container className="sort" style={contentStyle}>
         <Grid style={{ textAlign: "center" }} item xs={!isMobile ? "auto" : 12}>
           <Button
             color={!drawer.drawerOpen ? "inherit" : "primary"}
@@ -209,15 +209,22 @@ export default function Search({ query, isMobile }) {
         </Grid>
 
         {SortArray.map((item, i) => (
-          <div key={item.id}>
-            <MemoSorts
-              sort={item.sort}
-              HandelSort={HandelSort}
-              htl={item.htl}
-              lth={item.lth}
-              placeholder={item.placeholder}
-            />
-          </div>
+          <Grid
+            item
+            xs={!isMobile ? "auto" : 3}
+            key={item.id}
+            style={{ textAlign: "center" }}
+          >
+            <div>
+              <MemoSorts
+                sort={item.sort}
+                HandelSort={HandelSort}
+                htl={item.htl}
+                lth={item.lth}
+                placeholder={item.placeholder}
+              />
+            </div>
+          </Grid>
         ))}
       </Grid>
 

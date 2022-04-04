@@ -25,7 +25,7 @@ export default function Sorts({ HandelSort, placeholder, htl, lth, sort }) {
   });
 
   return (
-    <div style={{ padding: "0 15px" }}>
+    <>
       <Typography variant="h6" textAlign="center">
         {placeholder}
       </Typography>
@@ -62,7 +62,7 @@ export default function Sorts({ HandelSort, placeholder, htl, lth, sort }) {
           מהנמוך לגבוהה
         </Button>
       ) : null}
-    </div>
+    </>
   );
 }
 
