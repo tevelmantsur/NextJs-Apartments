@@ -10,6 +10,7 @@ import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
 import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
 import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
+import { isMobile } from "react-device-detect";
 
 export default function Search({ data, query }) {
   const [Query, setQuery] = useState(query);
@@ -117,20 +118,6 @@ export default function Search({ data, query }) {
       lth: "1",
     },
   ];
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  const handleResize = () => {
-    if (window.innerWidth < 720) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-  });
 
   function handelDrawer() {
     if (drawer.drawerOpen) {
