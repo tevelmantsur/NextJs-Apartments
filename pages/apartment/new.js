@@ -13,7 +13,6 @@ import NavBar from "../../components/navBar";
 import { isMobile } from "react-device-detect";
 import * as rdd from "react-device-detect";
 export default function Search({ data, query }) {
-  rdd.isMobile = true;
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
   console.log(query);
