@@ -10,9 +10,8 @@ import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
 import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
 import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
-import { isMobile } from "react-device-detect";
-import * as rdd from "react-device-detect";
-export default function Search({ data, query }) {
+
+export default function Search({ data, query, isMobile }) {
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
   console.log(query);
@@ -236,6 +235,8 @@ export default function Search({ data, query }) {
   );
 }
 import { getSession } from "next-auth/react";
+import { isMobile } from "react-device-detect";
+import * as rdd from "react-device-detect";
 
 export async function getServerSideProps(context) {
   let session = await getSession(context);
@@ -247,12 +248,14 @@ export async function getServerSideProps(context) {
       },
     };
   }
+
   let query = context.query;
   let MyurlParam = new URLSearchParams(query).toString();
   let url = `https://express-database-theta.vercel.app/search?${MyurlParam}`;
   const res = await fetch(url);
   const data = await res.json();
+  let isMobile = isMobile;
   return {
-    props: { query, data, session }, // will be passed to the page component as props
+    props: { query, data, session, isMobile }, // will be passed to the page component as props
   };
 }
