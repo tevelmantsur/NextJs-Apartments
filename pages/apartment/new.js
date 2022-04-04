@@ -138,16 +138,24 @@ export default function Search({ data, query }) {
     <div dir="rtl">
       <NavBar />
       <Drawer
-        anchor={!isMobile ? "right" : "bottom"}
-        PaperProps={
+        sx={
           !isMobile
             ? {
-                style: { top: "70px" },
+                width: 225,
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                  width: 225,
+                  top: 70,
+                },
               }
             : {
-                style: { top: "70px", width: "100%" },
+                "& .MuiDrawer-paper": {
+                  width: "100%",
+                  top: 70,
+                },
               }
         }
+        anchor={!isMobile ? "right" : "bottom"}
         variant="persistent"
         open={drawer.drawerOpen}
       >
