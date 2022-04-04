@@ -261,8 +261,8 @@ export default function Search({ query, isMobile }) {
 import { getSession } from "next-auth/react";
 
 export async function getServerSideProps(context) {
-  const UA = context.req.headers["user-agent"];
-  const isMobile = Boolean(
+  let UA = context.req.headers["user-agent"];
+  let isMobile = Boolean(
     UA.match(
       /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
     )
