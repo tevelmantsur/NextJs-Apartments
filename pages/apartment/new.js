@@ -4,7 +4,7 @@ import { MemoApartment } from "../../components/SingelApartment";
 import { MemoFillter } from "../../components/Fillters/Fillters";
 import { MemoSorts } from "../../components/Fillters/Sorts";
 import Drawer from "@mui/material/Drawer";
-import { Box, IconButton, Grid, Button } from "@mui/material";
+import { Box, IconButton, Grid, Button, Skeleton } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import CloseTwoToneIcon from "@mui/icons-material/CloseTwoTone";
 import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
@@ -14,7 +14,6 @@ import * as rdd from "react-device-detect";
 export default function Search({ query, isMobile }) {
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
-  console.log(query);
 
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -38,7 +37,6 @@ export default function Search({ query, isMobile }) {
   }, [Query]);
 
   useEffect(onQueryChange, [Query]);
-
   const HandelChange = useCallback(
     (e) => {
       let name = e.target.name;
@@ -153,7 +151,6 @@ export default function Search({ query, isMobile }) {
   return (
     <div dir="rtl">
       <NavBar />
-      <h1>{JSON.stringify(isMobile)}</h1>
 
       <Drawer
         sx={
@@ -227,42 +224,41 @@ export default function Search({ query, isMobile }) {
         ))}
       </Grid>
 
-      {!data ? (
-        "loading"
-      ) : data.length === 0 ? (
-        <div style={contentStyle}>
-          <h1>There is No data , click here to reset fillters</h1>
-          <button>click me</button>
+      <div>
+        <div className="ap-container" style={contentStyle}>
+          {isLoading ? (
+            <ApartmnetLoading />
+          ) : (
+            <>
+              {" "}
+              <MemoApartment data={data} />{" "}
+            </>
+          )}
         </div>
-      ) : (
-        <div>
-          <div className="ap-container" style={contentStyle}>
-            {isLoading ? <p>Loading...</p> : <MemoApartment data={data} />}
-          </div>
-          <div className="pagination">
-            <Box style={contentStyle} display="flex" justifyContent="center">
-              <Pagination
-                onClick={(e, value) => {
-                  setQuery((prevState) => ({
-                    ...prevState,
-                    page: e.target.innerText,
-                  }));
-                }}
-                count={Math.round(data[0].pageInfo[0]?.count / 50)}
-                page={isNaN(page) ? 0 : page}
-              ></Pagination>
-            </Box>
-          </div>
+        <div className="pagination">
+          <Box style={contentStyle} display="flex" justifyContent="center">
+            <Pagination
+              onClick={(e, value) => {
+                setQuery((prevState) => ({
+                  ...prevState,
+                  page: e.target.innerText,
+                }));
+              }}
+              count={!data ? 0 : Math.round(data[0].pageInfo[0]?.count / 50)}
+              page={isNaN(page) ? 0 : page}
+            ></Pagination>
+          </Box>
         </div>
-      )}
+      </div>
     </div>
   );
 }
 import { getSession } from "next-auth/react";
+import ApartmnetLoading from "../../components/Fillters/ApartmentsSkeleton";
 
 export async function getServerSideProps(context) {
-  let UA = context.req.headers["user-agent"];
-  let isMobile = Boolean(
+  const UA = context.req.headers["user-agent"];
+  const isMobile = Boolean(
     UA.match(
       /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
     )

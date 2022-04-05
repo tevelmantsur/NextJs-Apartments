@@ -31,6 +31,7 @@ export default function Sorts({ HandelSort, placeholder, htl, lth, sort }) {
       </Typography>
       {clicked === "" ? (
         <Button
+          id={htl}
           onClick={HandelClick}
           color="inherit"
           startIcon={<ArrowUpwardIcon />}

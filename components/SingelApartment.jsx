@@ -31,6 +31,9 @@ export default function SingelApartment(props) {
         <CircularProgress />
       ) : (
         props.data[0].data.map((item, index) => {
+          if (index == 0) {
+            return;
+          }
           return (
             <Grid item xs={12} sm={6} md={4} lg={4} key={item.id}>
               <Card key={item.id}>
