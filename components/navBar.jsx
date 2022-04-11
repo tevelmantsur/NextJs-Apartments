@@ -147,7 +147,14 @@ export default function NavBar() {
                 <Typography textAlign="center">לוח בקרה</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography onClick={() => signOut()} textAlign="center">
+                <Typography
+                  onClick={() =>
+                    signOut({
+                      callbackUrl: "https://next-js-apartments.vercel.app/",
+                    })
+                  }
+                  textAlign="center"
+                >
                   התנתק
                 </Typography>
               </MenuItem>
