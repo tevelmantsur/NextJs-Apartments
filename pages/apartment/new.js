@@ -11,34 +11,8 @@ import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
 import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
 import * as rdd from "react-device-detect";
-import { getSession } from "next-auth/react";
-import { SkeletonAP } from "../../components/Fillters/ApartmentsSkeleton";
-
-export async function getServerSideProps(context) {
-  const UA = context.req.headers["user-agent"];
-  const isMobile = Boolean(
-    UA.match(
-      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
-    )
-  );
-
-  let session = await getSession(context);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  let query = context.query;
-  console.log(context);
-  return {
-    props: { query, session, isMobile }, // will be passed to the page component as props
-  };
-}
-
-export default React.memo(function Search({ query, isMobile }) {
+export default React.memo(function Search({ query, isMobile, session }) {
+  console.log(session);
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
 
@@ -284,3 +258,29 @@ export default React.memo(function Search({ query, isMobile }) {
     </div>
   );
 });
+import { getSession } from "next-auth/react";
+import { SkeletonAP } from "../../components/Fillters/ApartmentsSkeleton";
+
+export async function getServerSideProps(context) {
+  const UA = context.req.headers["user-agent"];
+  const isMobile = Boolean(
+    UA.match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+    )
+  );
+
+  let session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  let query = context.query;
+  console.log(context);
+  return {
+    props: { query, session, isMobile }, // will be passed to the page component as props
+  };
+}

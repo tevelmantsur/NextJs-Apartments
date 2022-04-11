@@ -147,14 +147,7 @@ export default function NavBar() {
                 <Typography textAlign="center">לוח בקרה</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography
-                  onClick={() =>
-                    signOut({
-                      callbackUrl: `${window.location.origin}`,
-                    })
-                  }
-                  textAlign="center"
-                >
+                <Typography onClick={() => signOut({})} textAlign="center">
                   התנתק
                 </Typography>
               </MenuItem>
