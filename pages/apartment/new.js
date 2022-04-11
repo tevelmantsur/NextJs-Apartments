@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { MemoApartment } from "../../components/SingelApartment";
 import { MemoFillter } from "../../components/Fillters/Fillters";
@@ -11,7 +11,7 @@ import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
 import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
 import * as rdd from "react-device-detect";
-export default function Search({ query, isMobile }) {
+export default React.memo(function Search({ query, isMobile }) {
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
 
@@ -21,7 +21,7 @@ export default function Search({ query, isMobile }) {
   useEffect(() => {
     setLoading(true);
     let MyurlParam = new URLSearchParams(query).toString();
-    let url = `https://express-database-theta.vercel.app/search?${MyurlParam}`;
+    let url = `https://ap-db-six.vercel.app/search?${MyurlParam}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -31,12 +31,16 @@ export default function Search({ query, isMobile }) {
   }, [query]);
 
   const router = useRouter();
+  console.log(router);
 
   const onQueryChange = useCallback(() => {
-    router.push({ query: Query });
+    if (query !== Query) {
+      router.push({ query: Query });
+    }
   }, [Query]);
 
   useEffect(onQueryChange, [Query]);
+
   const HandelChange = useCallback(
     (e) => {
       let name = e.target.name;
@@ -227,7 +231,7 @@ export default function Search({ query, isMobile }) {
       <div>
         <div className="ap-container" style={contentStyle}>
           {isLoading ? (
-            <ApartmnetLoading />
+            <SkeletonAP />
           ) : (
             <>
               {" "}
@@ -252,9 +256,11 @@ export default function Search({ query, isMobile }) {
       </div>
     </div>
   );
-}
+});
 import { getSession } from "next-auth/react";
-import ApartmnetLoading from "../../components/Fillters/ApartmentsSkeleton";
+import ApartmnetLoading, {
+  SkeletonAP,
+} from "../../components/Fillters/ApartmentsSkeleton";
 
 export async function getServerSideProps(context) {
   const UA = context.req.headers["user-agent"];
@@ -274,6 +280,7 @@ export async function getServerSideProps(context) {
     };
   }
   let query = context.query;
+  console.log(context);
   return {
     props: { query, session, isMobile }, // will be passed to the page component as props
   };

@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import {
+  Alert,
   CardActionArea,
   CircularProgress,
   IconButton,
@@ -21,14 +22,22 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Badge from "@mui/material/Badge";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import { SkeletonAP } from "./Fillters/ApartmentsSkeleton";
 
 export default function SingelApartment(props) {
+  console.log(props);
   console.log("Singel Componet has Rendered");
 
   return (
     <Grid container spacing={2} style={{ padding: "10px 20px" }}>
       {!props.data ? (
-        <CircularProgress />
+        <SkeletonAP />
+      ) : props.data[0].data.length === 0 ? (
+        <>
+          <Alert severity="error">השלימו את החיפוש או אפסו את הפילטריה </Alert>
+
+          <SkeletonAP />
+        </>
       ) : (
         props.data[0].data.map((item, index) => {
           if (index == 0) {

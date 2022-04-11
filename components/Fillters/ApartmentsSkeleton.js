@@ -96,3 +96,5 @@ export default function ApartmnetLoading() {
     </Grid>
   );
 }
+
+export const SkeletonAP = React.memo(ApartmnetLoading);
