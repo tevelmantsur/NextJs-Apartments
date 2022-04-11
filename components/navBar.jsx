@@ -150,7 +150,7 @@ export default function NavBar() {
                 <Typography
                   onClick={() =>
                     signOut({
-                      callbackUrl: "https://next-js-apartments.vercel.app/",
+                      callbackUrl: `${window.location.origin}`,
                     })
                   }
                   textAlign="center"
