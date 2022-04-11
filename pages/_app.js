@@ -5,7 +5,6 @@ export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }) {
-  console.log("im app");
   return (
     <SessionProvider session={session}>
       <Component {...pageProps} />

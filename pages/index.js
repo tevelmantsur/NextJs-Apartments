@@ -15,6 +15,7 @@ function Home() {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     minHeight: "100vh",
+    marginLeft: "-1px",
   };
 
   const { data: session } = useSession();
