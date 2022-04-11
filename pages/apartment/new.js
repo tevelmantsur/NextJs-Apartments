@@ -12,7 +12,7 @@ import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
 import * as rdd from "react-device-detect";
 export default React.memo(function Search({ query, isMobile, session }) {
-  console.log(session);
+  console.log("this is my session" + JSON.stringify(session));
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
 
