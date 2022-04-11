@@ -11,28 +11,14 @@ import { MemoAdressFillter } from "../../components/Fillters/AdressFillter";
 import Pagination from "@mui/material/Pagination";
 import NavBar from "../../components/navBar";
 import * as rdd from "react-device-detect";
-export default React.memo(function Search({ query, isMobile, session }) {
-  console.log("this is my session" + JSON.stringify(session));
+
+export default React.memo(function Search({ data, query, isMobile }) {
   const [Query, setQuery] = useState(query);
   const [drawer, setDrawer] = useState({ drawerOpen: false, name: "פתח" });
 
-  const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    let MyurlParam = new URLSearchParams(query).toString();
-    let url = `https://ap-db-six.vercel.app/search?${MyurlParam}`;
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
-  }, [query]);
-
   const router = useRouter();
-  console.log(router);
 
   const onQueryChange = useCallback(() => {
     if (query !== Query) {
@@ -279,8 +265,11 @@ export async function getServerSideProps(context) {
     };
   }
   let query = context.query;
-  console.log(context);
+  let MyurlParam = new URLSearchParams(query).toString();
+  let url = `https://ap-db-six.vercel.app/search?${MyurlParam}`;
+  const res = await fetch(url);
+  const data = await res.json();
   return {
-    props: { query, session, isMobile }, // will be passed to the page component as props
+    props: { query, data, session, isMobile }, // will be passed to the page component as props
   };
 }

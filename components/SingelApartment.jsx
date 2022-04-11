@@ -25,9 +25,6 @@ import ConstructionIcon from "@mui/icons-material/Construction";
 import { SkeletonAP } from "./Fillters/ApartmentsSkeleton";
 
 export default function SingelApartment(props) {
-  console.log(props);
-  console.log("Singel Componet has Rendered");
-
   return (
     <Grid container spacing={2} style={{ padding: "10px 20px" }}>
       {!props.data ? (
