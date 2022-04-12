@@ -1,34 +1,48 @@
 import * as React from "react";
 import { useRouter } from "next/router";
+import NavBar from "../../components/navBar";
+import { getSession } from "next-auth/react";
+import { Container, Grid } from "@mui/material";
+import { height } from "@mui/system";
+import { Image } from "@mui/icons-material";
 
-export default function NavBar({ data }) {
+export default function ApartmentDetails({ data }) {
   const router = useRouter();
-
+  console.log(data);
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
   return (
-    <>
-      {!data ? "loading" : <h1>{data.id}</h1>}
-      <button onClick={() => router.back()}>Click here to go back</button>
-    </>
+    <div dir="rtl">
+      <NavBar></NavBar>
+      {!data ? (
+        "loading"
+      ) : (
+        <Grid container justifyContent={"flex-start"}>
+          <Grid>
+            <img src={data.imgUrl} alt={`בית ב ${data.location}`}></img>
+          </Grid>
+          <Grid>
+            <h1>{data.id}</h1>
+          </Grid>
+        </Grid>
+      )}
+    </div>
   );
 }
 
-export async function getStaticPaths(props) {
-  console.log(props);
-  return {
-    // Only `/posts/1` and `/posts/2` are generated at build time
-    paths: [{ params: { id: "b70joc2m" } }],
-    // Enable statically generating additional pages
-    // For example: `/posts/3`
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }) {
-  console.log(params);
+export async function getServerSideProps(context) {
+  let params = context.params;
+  let session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
   const res = await fetch(
@@ -38,9 +52,6 @@ export async function getStaticProps({ params }) {
 
   // Pass post data to the page via props
   return {
-    props: { data },
-    // Re-generate the post at most once per second
-    // if a request comes in
-    revalidate: 1,
+    props: { data, session },
   };
 }

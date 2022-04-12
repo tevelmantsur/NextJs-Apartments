@@ -33,7 +33,7 @@ export default function NavBar() {
   };
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" dir="rtl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
